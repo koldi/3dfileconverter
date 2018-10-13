@@ -1,12 +1,9 @@
 #include "catch2.hpp"
+#include "lib.h"
 
-
-int add(int a, int b)
+TEST_CASE("Lib", "Test")
 {
-    return a + b;
-}
-
-TEST_CASE("Add", "Integers")
-{
-  REQUIRE(add(1,2) == 3);
+  A a;
+  a.a = 7;
+  REQUIRE(a.foo() == 7);
 }
