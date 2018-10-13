@@ -6,9 +6,9 @@ branches:
   only:
     - master
 before_script:
-  - brew update && brew upgrade cmake
-script:
   - mkdir build
   - cd build
   - cmake -DCMAKE_CXX_COMPILER=clang++ ../src
+script:
   - make
+  - make test
