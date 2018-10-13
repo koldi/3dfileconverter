@@ -1,9 +1,11 @@
 language: cpp
 dist: osx
-compiler: clang
+compiler: clang++
 branches:
   only:
     - master
 script:
+  - mkdir build
+  - cd build
   - cmake -DCMAKE_CXX_COMPILER=clang++ ../src
   - make
