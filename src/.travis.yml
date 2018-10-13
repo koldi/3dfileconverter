@@ -1,5 +1,9 @@
 language: cpp
+dist: osx
 compiler: clang
+branches:
+  only:
+    - master
 script:
   - cmake -DCMAKE_CXX_COMPILER=clang++ ../src
   - make
