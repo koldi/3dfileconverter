@@ -1,4 +1,5 @@
 language: cpp
 compiler: clang
 script:
+  - cmake -DCMAKE_CXX_COMPILER=clang++ ../src
   - make
