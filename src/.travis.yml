@@ -1,6 +1,4 @@
 language: cpp
-compiler: clang
-dist: osx
 compiler:
 - clang
 os:
