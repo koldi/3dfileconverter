@@ -1,5 +1,4 @@
 add_library(converter SHARED
-  lib.cpp
   FileReader.cpp
 )
 

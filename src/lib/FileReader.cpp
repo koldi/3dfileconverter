@@ -14,6 +14,7 @@ Face CreateFace(const std::vector<Vector3D>& v,
                                             const std::vector<std::string>& vertices) 
 {
     Face face;
+    int i = 0;
     for(auto& t : vertices)
     {
         if (t == "f")
@@ -23,7 +24,7 @@ Face CreateFace(const std::vector<Vector3D>& v,
         });
         if (delimiterCount == 0) {
             // TODO emplace, empty vectors
-            Vertex vertex = {v[std::stoi(t)], {}, {}};
+            Vertex vertex = {v[std::stoi(t) - 1], {}, {}};
             face.vertexList_.push_back(vertex);
         } else {
             std::istringstream streamToken(t);
@@ -35,19 +36,21 @@ Face CreateFace(const std::vector<Vector3D>& v,
             }
             if (splittedStrings.size() == 2) {
                 // TODO emplace, empty vectors
-                Vertex vertex = {v[std::stoi(splittedStrings[0])], vt[std::stoi(splittedStrings[1])], {}};
+                Vertex vertex = {v[std::stoi(splittedStrings[0]) - 1], vt[std::stoi(splittedStrings[1]) - 1], {}};
                 face.vertexList_.push_back(vertex);
             } else {
                 // TODO emplace, empty vectors
+                
                 if(!splittedStrings[1].empty()) {
-                    Vertex vertex = {v[std::stoi(splittedStrings[0])], vt[std::stoi(splittedStrings[1])], vn[std::stoi(splittedStrings[2])]};
+                    Vertex vertex = {v[std::stoi(splittedStrings[0]) - 1], vt[std::stoi(splittedStrings[1]) - 1], vn[std::stoi(splittedStrings[2]) - 1]};
                     face.vertexList_.push_back(vertex);
                 } else {
-                    Vertex vertex = {v[std::stoi(splittedStrings[0])], {}, vn[std::stoi(splittedStrings[2])]};
+                    Vertex vertex = {v[std::stoi(splittedStrings[0]) - 1], {}, vn[std::stoi(splittedStrings[2]) - 1]};
                     face.vertexList_.push_back(vertex);
                 }
             }
         }
+        i++;
     }
     return face;
 }
