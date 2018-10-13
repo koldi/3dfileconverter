@@ -18,7 +18,10 @@
 			"iosfwd": "cpp",
 			"vector": "cpp",
 			"iterator": "cpp",
-			"ostream": "cpp"
+			"ostream": "cpp",
+			"fstream": "cpp",
+			"__split_buffer": "cpp",
+			"deque": "cpp"
 		}
 	}
 }

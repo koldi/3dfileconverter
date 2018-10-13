@@ -7,8 +7,10 @@ class FileReader
 {
 public:
     static std::unique_ptr<FileReader> CreateFileReader(std::string fileName);
+private:
     FileReader(std::string fileName);
     bool ReadFile();
+
     std::string fileName_;
-    std::vector<Face> faces_;
+    std::string buffer_;
 };
