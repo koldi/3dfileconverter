@@ -16,7 +16,8 @@
 			"algorithm": "cpp",
 			"istream": "cpp",
 			"iosfwd": "cpp",
-			"vector": "cpp"
+			"vector": "cpp",
+			"iterator": "cpp"
 		}
 	}
 }

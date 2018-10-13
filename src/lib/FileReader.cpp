@@ -23,7 +23,6 @@ Face CreateFace(const std::vector<Vector3D>& v,
         });
         if (delimiterCount == 0) {
             // TODO emplace, empty vectors
-            std::cout << "24. sor - " << t << std::endl; 
             Vertex vertex = {v[std::stoi(t)], {}, {}};
             face.vertexList_.push_back(vertex);
         } else {
@@ -36,21 +35,14 @@ Face CreateFace(const std::vector<Vector3D>& v,
             }
             if (splittedStrings.size() == 2) {
                 // TODO emplace, empty vectors
-                std::cout << "37. sor - " << splittedStrings[0] << std::endl; 
-                std::cout << "38. sor - " << splittedStrings[1] << std::endl; 
                 Vertex vertex = {v[std::stoi(splittedStrings[0])], vt[std::stoi(splittedStrings[1])], {}};
                 face.vertexList_.push_back(vertex);
             } else {
                 // TODO emplace, empty vectors
                 if(!splittedStrings[1].empty()) {
-                    std::cout << "37. sor - " << splittedStrings[0] << std::endl; 
-                    std::cout << "38. sor - " << splittedStrings[1] << std::endl;
-                    std::cout << "37. sor - " << splittedStrings[2] << std::endl; 
                     Vertex vertex = {v[std::stoi(splittedStrings[0])], vt[std::stoi(splittedStrings[1])], vn[std::stoi(splittedStrings[2])]};
                     face.vertexList_.push_back(vertex);
                 } else {
-                    std::cout << "37. sor - " << splittedStrings[0] << std::endl; 
-                    std::cout << "38. sor - " << splittedStrings[2] << std::endl; 
                     Vertex vertex = {v[std::stoi(splittedStrings[0])], {}, vn[std::stoi(splittedStrings[2])]};
                     face.vertexList_.push_back(vertex);
                 }
