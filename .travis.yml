@@ -6,7 +6,7 @@ branches:
   only:
     - master
 before_script:
-  - brew update && brew install cmake
+  - brew update && brew upgrade cmake
 script:
   - mkdir build
   - cd build
