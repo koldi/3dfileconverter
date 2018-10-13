@@ -1,10 +1,14 @@
 #include <iostream>
 #include "lib.h"
+#include "FileReader.h"
+
 
 int main ()
 {
-  A a;
-  a.a = 6;
-  std::cout << a.foo() << std::endl;
+  auto f = FileReader::CreateFileReader("/Users/gyorgykatona/git/3dfileconverter/input/input.obj");
+  for(auto k : f->faces_)
+  {
+      std::cout << "valami" << std::endl;
+  }
   return 0;
 }
