@@ -10,11 +10,11 @@ struct Vector3D;
 class OBJParser
 {
 public:
-    static const std::string ToOBJ(const Face& face);
-    static std::vector<Material> FromOBJ(const std::string& face);
+    const std::string ToData(const std::vector<Material>& materials) const;
+    std::vector<Material> FromData(const std::string& data) const;
 private:
-    static Face CreateFace( const std::vector<Vector3D>& v,
+    Face CreateFace( const std::vector<Vector3D>& v,
                             const std::vector<Vector2D>& vt,
                             const std::vector<Vector3D>& vn,
-                            const std::vector<std::string>& vertices);
+                            const std::vector<std::string>& vertices) const;
 };

@@ -5,13 +5,13 @@
 #include <sstream>
 #include <algorithm>
 
-const std::string OBJParser::ToOBJ(const Face& face) 
+const std::string OBJParser::ToData(const std::vector<Material>& materials)  const
 {
-    (void)face;
+    (void)materials;
     return "";
 }
 
-std::vector<Material> OBJParser::FromOBJ(const std::string& face)
+std::vector<Material> OBJParser::FromData(const std::string& data) const
 {
     std::vector<Material>  result;
     // material name
@@ -25,7 +25,7 @@ std::vector<Material> OBJParser::FromOBJ(const std::string& face)
     // Faces
     std::vector<Face> faces;
   
-    std::istringstream streamToken(face);
+    std::istringstream streamToken(data);
     std::string line;
     while (std::getline(streamToken, line))
     {
@@ -63,7 +63,7 @@ std::vector<Material> OBJParser::FromOBJ(const std::string& face)
 Face OBJParser::CreateFace(const std::vector<Vector3D>& v,
                             const std::vector<Vector2D>& vt,
                             const std::vector<Vector3D>& vn,
-                            const std::vector<std::string>& vertices)
+                            const std::vector<std::string>& vertices) const
 {
     Face face;
     for(auto& t : vertices)
