@@ -1,3 +1,7 @@
+/** 
+ * The full object with connecting faces
+ */
+
 #pragma once
 #include <vector>
 #include <string>
@@ -6,14 +10,13 @@
 
 struct Material
 {
-    Material() {}
-    Material(const std::string& name, std::vector<Face> faces)
+    Material(const std::string& name, std::vector<Face>&& faces)
     : name_(name)
     , faces_(std::move(faces))
     {}
-    
-    std::string name_;
-    std::vector<Face> faces_;
+
+    std::string name_;          /// the name of the material
+    std::vector<Face> faces_;   /// all the faces
 };
 
 inline bool operator==(const Material& lhs, const Material& rhs)

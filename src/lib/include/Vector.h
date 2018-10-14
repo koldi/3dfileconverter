@@ -1,6 +1,13 @@
+/**
+ * This file contains all the vector implementation that we need
+ * 2D Vector
+ * 3D Vector
+ * future improvement(TODO):
+ * - this should be one class only
+ * - OBJ files support another W parameter
+ */
+
 #pragma once
-// Todo make it one struct
-// Todo optional w where it needed
 
 struct Vector2D
 {
@@ -26,10 +33,6 @@ struct Vector3D
     , y_(y)
     , z_(z)
     {}
-
-    void ToString() {
-        std::cout << x_ << ", " << y_ << ", " << z_ << std::endl;
-    }
 };
 
 inline bool operator==(const Vector2D& lhs, const Vector2D& rhs)

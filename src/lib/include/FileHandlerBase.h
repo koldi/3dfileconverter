@@ -1,3 +1,10 @@
+/**
+ * Base Class for file operation:
+ * - read
+ * - write
+ * It can handle both binary and text files.
+ */
+
 #pragma once
 #include <string>
 #include <memory>
@@ -23,7 +30,7 @@ protected:
         }
     }
 
-    std::string fileName_;
-    FileType ext_;
-    bool binary_ = false;
+    std::string fileName_;  /// the given file name
+    FileType ext_;          /// stl, obj, etc.
+    bool binary_ = false;   /// binary or text file
 };

@@ -5,6 +5,18 @@
 #include <sstream>
 #include <algorithm>
 
+namespace {
+    template<typename T>
+    T GetElementByIndex(int index, const std::vector<T>& elements)
+    {
+        if (index > 0) {
+            return elements[index-1];
+        } else {
+            return elements[elements.size()+index];
+        }
+    }
+}
+
 const std::string OBJParser::ToData(const std::vector<Material>&)  const
 {
     assert(false && "Not implemented");
@@ -13,7 +25,7 @@ const std::string OBJParser::ToData(const std::vector<Material>&)  const
 
 std::vector<Material> OBJParser::FromData(const std::string& data) const
 {
-    std::vector<Material>  result;
+    std::vector<Material> result;
     // material name
     std::string name = "unnamed";
     // for v
@@ -46,7 +58,7 @@ std::vector<Material> OBJParser::FromData(const std::string& data) const
         } else if (type == "usemtl")  {
             // save previous material
             if (name != "unnamed" || !faces.empty()) {
-                result.emplace_back(name, faces);
+                result.emplace_back(name, std::move(faces));
                 faces.clear();
             }
             name = tokens[1];
@@ -56,7 +68,7 @@ std::vector<Material> OBJParser::FromData(const std::string& data) const
     }
     // save last material
     if (name != "unnamed" || !faces.empty()) {
-        result.emplace_back(name, faces);
+        result.emplace_back(name, std::move(faces));
     }
 
     return result;
@@ -70,50 +82,40 @@ Face OBJParser::CreateFace(const std::vector<Vector3D>& v,
     Face face;
     for(auto& t : vertices)
     {
-        // TODO index could be negateive
         if (t == "f")
             continue;
         auto delimiterCount = std::count_if(std::begin(t), std::end(t), [](char c){
             return c == '/';
         });
+        // f 1 2 3 4
         if (delimiterCount == 0) {
-            // TODO emplace, empty vectors
-            Vertex vertex = {GetElementByIndex(std::stoi(t), v), {}, {}};
-            face.push_back(vertex);
+            face.emplace_back(Vertex{GetElementByIndex(std::stoi(t), v), {}, {}});
         } else {
             std::istringstream streamToken(t);
             std::string item;
             std::vector<std::string> splittedStrings;
-            while (std::getline(streamToken, item, '/'))
-            {
+            while (std::getline(streamToken, item, '/')) {
                 splittedStrings.push_back(item);
             }
+            // f 1/2 2/2 3/2
             if (splittedStrings.size() == 2) {
-                // TODO emplace, empty vectors
-                Vertex vertex = {GetElementByIndex(std::stoi(splittedStrings[0]), v), GetElementByIndex(std::stoi(splittedStrings[1]), vt), {}};
-                face.push_back(vertex);
-            } else {
-                // TODO emplace, empty vectors
-                
+                face.push_back(Vertex{GetElementByIndex(std::stoi(splittedStrings[0]), v), 
+                                      GetElementByIndex(std::stoi(splittedStrings[1]), vt), 
+                                      {}});
+            } else {                
+                // f 1/2/1 2/2/1 3/2/1
                 if(!splittedStrings[1].empty()) {
-                    Vertex vertex = {GetElementByIndex(std::stoi(splittedStrings[0]), v), GetElementByIndex(std::stoi(splittedStrings[1]), vt), GetElementByIndex(std::stoi(splittedStrings[2]), vn)};
-                    face.push_back(vertex);
+                    face.push_back(Vertex{GetElementByIndex(std::stoi(splittedStrings[0]), v), 
+                                          GetElementByIndex(std::stoi(splittedStrings[1]), vt), 
+                                          GetElementByIndex(std::stoi(splittedStrings[2]), vn)});
+                // f 1//2 2//2 3//2
                 } else {
-                    Vertex vertex = {GetElementByIndex(std::stoi(splittedStrings[0]), v), {}, GetElementByIndex(std::stoi(splittedStrings[2]), vn)};
-                    face.push_back(vertex);
+                    face.push_back(Vertex{GetElementByIndex(std::stoi(splittedStrings[0]), v), 
+                                          {}, 
+                                          GetElementByIndex(std::stoi(splittedStrings[2]), vn)});
                 }
             }
         }
     }
     return face;
-}
-
-template<typename T>
-T OBJParser::GetElementByIndex(int index, const std::vector<T>& elements) const
-{
-    if (index > 0) {
-        return elements[index-1];
-    } else {
-        return elements[elements.size()+index];
-    }
 }

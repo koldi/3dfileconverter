@@ -2,6 +2,8 @@ add_executable(test_3dfileconverter
   test_main.cpp
   ParserTest.cpp
   OBJParserTest.cpp
+  STLParserTest.cpp
+  ConversationTests.cpp
 )
 
 target_link_libraries(test_3dfileconverter

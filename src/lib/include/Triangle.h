@@ -1,3 +1,8 @@
+/**
+ * Triangle struct for STL files
+ * https://en.wikipedia.org/wiki/STL_(file_format)
+ */
+
 #pragma once
 #include "Vector.h"
 #include <utility>

@@ -1,9 +1,9 @@
 #include "FileWriter.h"
 #include "Vector.h"
 #include "Vertex.h"
-#include "FileType.h"
 #include "STLParser.h"
 #include "Parser.h"
+
 #include <fstream>
 #include <algorithm>
 
@@ -11,8 +11,7 @@ void FileWriter::WriteFile(std::string fileName, const std::vector<Material>& ma
 {
     FileWriter fileWriter = {fileName};
     std::string output;
-    switch(fileWriter.ext_)
-    {
+    switch(fileWriter.ext_) {
         case FileType::stl:
             {
                 STLParser parser;
@@ -27,8 +26,7 @@ void FileWriter::WriteFile(std::string fileName, const std::vector<Material>& ma
 
 FileWriter::FileWriter(std::string fileName)
 : FileHandlerBase(std::move(fileName))
-{
-}
+{}
 
 void FileWriter::FileWriterImpl(const std::string& buffer)
 {

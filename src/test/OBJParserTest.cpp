@@ -114,20 +114,25 @@ TEST_CASE("OBJ Data Parser", "[parser]")
     OBJParser parser;
     SECTION( " minimal data object " ) 
     {
+        auto input = materialFaces;
         auto material = parser.FromData(minimalOBJFileData);
-        std::vector<Material> expected = {{"Material", materialFaces}};
+        std::vector<Material> expected = {{"Material", std::move(input)}};
         REQUIRE(material == expected);
     }
     SECTION( " minimal data object with negative index" ) 
     {
+        auto input = negativeFaces;
         auto material = parser.FromData(minimalOBJFileDataWithNegativeIndex);
-        std::vector<Material> expected = {{"Material", negativeFaces}};
+        std::vector<Material> expected = {{"Material", std::move(input)}};
         REQUIRE(material == expected);
     }
     SECTION( " minimal data with multiple object" ) 
     {
+        auto input1 = materialFaces;
+        auto input2 = materialFaces;
+        auto input3 = materialFaces;
         auto material = parser.FromData(minimalWithMultipleObjects);
-        std::vector<Material> expected = {{"Material1", materialFaces}, {"Material2", materialFaces},{"Material3", materialFaces}};
+        std::vector<Material> expected = {{"Material1", std::move(input1)}, {"Material2", std::move(input2)},{"Material3", std::move(input3)}};
         REQUIRE(material == expected);
     }
 

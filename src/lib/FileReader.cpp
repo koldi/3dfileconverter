@@ -1,9 +1,9 @@
 #include "FileReader.h"
 #include "Vector.h"
 #include "Vertex.h"
-#include "FileType.h"
 #include "OBJParser.h"
 #include "Parser.h"
+
 #include <fstream>
 #include <algorithm>
 
@@ -12,13 +12,11 @@ std::vector<Material> FileReader::ReadFile(std::string fileName)
     FileReader fileReader = {fileName};
     std::string input;
     
-    if(!fileReader.ReadFileImpl(input))
-    {
+    if(!fileReader.ReadFileImpl(input)) {
         return {};
     }
 
-    switch(fileReader.ext_)
-    {
+    switch(fileReader.ext_) {
         case FileType::obj:
             {
                 OBJParser parser;
@@ -34,8 +32,7 @@ std::vector<Material> FileReader::ReadFile(std::string fileName)
 
 FileReader::FileReader(std::string fileName)
 : FileHandlerBase(std::move(fileName))
-{
-}
+{}
 
 bool FileReader::ReadFileImpl(std::string& buffer)
 {
@@ -57,6 +54,6 @@ bool FileReader::ReadFileImpl(std::string& buffer)
         file.close();
         return false;
     }
-    
+
     return true;
 }

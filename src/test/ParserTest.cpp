@@ -3,7 +3,10 @@
 
 class ParserA {
 public:
-    const std::string ToData(const std::vector<Material>&) const { return ""; }
+    const std::string ToData(const std::vector<Material>&) const 
+    { 
+        return "called"; 
+    }
     std::vector<Material> FromData(const std::string&) const 
     {
         std::vector<Material> m;
@@ -49,6 +52,13 @@ TEST_CASE("Good Parser", "[parser]")
     {
         auto m = parser::parse(a, "");
         REQUIRE(m.size() != 0);
+    }
+
+    SECTION( "returns a material vector" ) 
+    {
+        std::vector<Material> v;
+        auto m = parser::parse(a, v);
+        REQUIRE(m == "called");
     }
 }
 

@@ -84,6 +84,7 @@ const std::string STLParser::ToData(const std::vector<Material>& material) const
 
 std::vector<Material> STLParser::FromData(const std::string& data) const
 {
+    assert(false && "Not implemented, only for testing");
     std::stringstream ss(data);
     // header
     char header[80];
@@ -91,11 +92,12 @@ std::vector<Material> STLParser::FromData(const std::string& data) const
     // triangle count
     unsigned int num_triangles = GetNumberFromStream<unsigned int>(ss);
     // triangles
+    std::vector<Triangle> allTriangles;
     for(unsigned int i = 0; i < num_triangles; ++i) {
-        auto t = GetTriangleFromStream(ss);
-        (void)t;
-        // todo create material from triangle
+        allTriangles.push_back(GetTriangleFromStream(ss));
     }
+
+    // TODO create faces from triangles
 
     return {};
 }
@@ -126,7 +128,7 @@ std::vector<Triangle> STLParser::GetTrianglesFromFace(const Face& face) const
         } else {
             third = second+1;
         }
-        // TODO what if the angle is larger then 180?
+        // TODO what if the angle is larger then 180? concave polygon
     }
     
     return result;

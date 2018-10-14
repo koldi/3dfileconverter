@@ -1,7 +1,10 @@
-#pragma once
+/**
+ * Face implemantation
+ * Face is a list of Vertices
+ */
 
+#pragma once
 #include <vector>
-#include <iostream>
 #include "Vertex.h"
 
 using Face = std::vector<Vertex>;
