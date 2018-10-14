@@ -20,3 +20,8 @@ struct Vertex
     Vector2D vt_;
     Vector3D vn_;
 };
+
+inline bool operator==(const Vertex& lhs, const Vertex& rhs)
+{
+    return lhs.v_ == rhs.v_ && lhs.vt_ == rhs.vt_ && lhs.vn_ == rhs.vn_;
+}

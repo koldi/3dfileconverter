@@ -27,3 +27,13 @@ struct Vector3D
     , z_(z)
     {}
 };
+
+inline bool operator==(const Vector2D& lhs, const Vector2D& rhs)
+{
+    return lhs.x_ == rhs.x_ && lhs.y_ == rhs.y_;
+}
+
+inline bool operator==(const Vector3D& lhs, const Vector3D& rhs)
+{
+    return lhs.x_ == rhs.x_ && lhs.y_ == rhs.y_ && lhs.z_ == rhs.z_;
+}
