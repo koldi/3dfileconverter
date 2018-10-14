@@ -5,9 +5,9 @@
 #include <sstream>
 #include <algorithm>
 
-const std::string OBJParser::ToData(const std::vector<Material>& materials)  const
+const std::string OBJParser::ToData(const std::vector<Material>&)  const
 {
-    (void)materials;
+    assert(false && "Not implemented");
     return "";
 }
 

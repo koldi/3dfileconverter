@@ -1,3 +1,7 @@
+/***
+ * Simple parser for OBJ files based on https://en.wikipedia.org/wiki/Wavefront_.obj_file
+ */
+
 #pragma once
 #include <string>
 #include <vector>
@@ -10,10 +14,8 @@ struct Vector3D;
 class OBJParser
 {
 public:
-    OBJParser() = default;
     const std::string ToData(const std::vector<Material>& materials) const;
     std::vector<Material> FromData(const std::string& data) const;
-    void bazdmeg() const {}
 private:
     Face CreateFace( const std::vector<Vector3D>& v,
                             const std::vector<Vector2D>& vt,

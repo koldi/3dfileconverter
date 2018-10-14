@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "FileReader.h"
+#include "STLParser.h"
 
   struct point {
     float x;
@@ -61,7 +62,9 @@ std::ostream& operator<<(std::ostream& out, const point p) {
 
 int main ()
 {
-  // auto f = FileReader::ReadFile("/Users/gyorgykatona/git/3dfileconverter/input/input.obj");
+  auto f = FileReader::ReadFile("/Users/gyorgykatona/git/3dfileconverter/input/input.obj");
+  STLParser parser;
+  parser.ToData(f);
   // for(auto k : f)
   // {
   //   std::cout << "Material name: " << k.name_;
@@ -71,37 +74,45 @@ int main ()
   //   }
   // }
 
-  std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-    // copies all data into buffer
-  std::ifstream stl_file("/Users/gyorgykatona/git/3dfileconverter/input/untitled.stl", std::ios::in | std::ios::binary);
-    if (!stl_file) {
-      std::cout << "ERROR: COULD NOT READ FILE" << std::endl;
-      assert(false);
-    }
+  // std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+  //   // copies all data into buffer
+  //   std::ifstream stl_file("/Users/gyorgykatona/git/3dfileconverter/input/untitled.stl", std::ios::in | std::ios::binary);
 
-    char header_info[80] = "";
-    char n_triangles[4];
-    stl_file.read(header_info, 80);
-    stl_file.read(n_triangles, 4);
-    std::string h(header_info);
-    // stl_data info(h);
-    std::vector<triangle> triangles;
-    unsigned int* r = (unsigned int*) n_triangles;
-    unsigned int num_triangles = *r;
-    for (unsigned int i = 0; i < num_triangles; i++) {
-      auto normal = parse_point(stl_file);
-      auto v1 = parse_point(stl_file);
-      auto v2 = parse_point(stl_file);
-      auto v3 = parse_point(stl_file);
-      triangles.push_back(triangle(normal, v1, v2, v3));
-      char dummy[2];
-      stl_file.read(dummy, 2);
-    }
+  //   std::string buffer = std::string((std::istreambuf_iterator<char>(stl_file)), std::istreambuf_iterator<char>());
+  //   stl_file.close();
 
-  std::cout << triangles.size() << std::endl;
-  for(auto t : triangles) {
-    t.ToString();
-  }
+  //   STLParser parser;
+  //   parser.FromData(buffer);
+
+  // std::ifstream stl_file("/Users/gyorgykatona/git/3dfileconverter/input/untitled.stl", std::ios::in | std::ios::binary);
+  //   if (!stl_file) {
+  //     std::cout << "ERROR: COULD NOT READ FILE" << std::endl;
+  //     assert(false);
+  //   }
+
+  //   char header_info[80] = "";
+  //   char n_triangles[4];
+  //   stl_file.read(header_info, 80);
+  //   stl_file.read(n_triangles, 4);
+  //   std::string h(header_info);
+  //   // stl_data info(h);
+  //   std::vector<triangle> triangles;
+  //   unsigned int* r = (unsigned int*) n_triangles;
+  //   unsigned int num_triangles = *r;
+  //   for (unsigned int i = 0; i < num_triangles; i++) {
+  //     auto normal = parse_point(stl_file);
+  //     auto v1 = parse_point(stl_file);
+  //     auto v2 = parse_point(stl_file);
+  //     auto v3 = parse_point(stl_file);
+  //     triangles.push_back(triangle(normal, v1, v2, v3));
+  //     char dummy[2];
+  //     stl_file.read(dummy, 2);
+  //   }
+
+  // std::cout << triangles.size() << std::endl;
+  // for(auto t : triangles) {
+  //   t.ToString();
+  // }
 
   return 0;
 }

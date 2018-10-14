@@ -26,6 +26,10 @@ struct Vector3D
     , y_(y)
     , z_(z)
     {}
+
+    void ToString() {
+        std::cout << x_ << ", " << y_ << ", " << z_ << std::endl;
+    }
 };
 
 inline bool operator==(const Vector2D& lhs, const Vector2D& rhs)

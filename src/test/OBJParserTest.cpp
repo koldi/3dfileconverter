@@ -61,34 +61,6 @@ std::vector<Face> negativeFaces =
 { {1.000000, -1.000000, 1.000000}, {-1.0000, 1.0000}, {0.0000, 1.0000, 0.0000} },
 { {1.000000, -1.000000, -1.000000}, {1.0000, 1.0000}, {0.0000, -1.0000, 0.0000} }}};
 
-std::string validOBJFileData = R"(# List of geometric vertices, with (x, y, z [,w]) coordinates, w is optional and defaults to 1.0.
-v 1.000000 -1.000000 -1.000000
-v 1.000000 -1.000000 1.000000
-v -1.000000 -1.000000 1.000000
-v -1.000000 -1.000000 -1.000000
-v 1.000000 -1.000000 -1.000000
-v 1.000000 -1.000000 1.000000
-v -1.000000 -1.000000 1.000000
-v -1.000000 -1.000000 -1.000000
-# List of texture coordinates, in (u, v [,w]) coordinates, these will vary between 0 and 1, w is optional and defaults to 0.
-vt 0.100 1 [0]
-vt 0.200 0.234
-vt 0.300 0.12 [0]
-vt 0.400 0.567 [0]
-vt 0.500 0.44
-# List of vertex normals in (x,y,z) form; normals might not be unit vectors.
-vn 0.0000 -1.0000 0.0000
-vn 0.0000 1.0000 0.0000
-vn 1.0000 0.0000 0.0000
-vn -0.0000 -0.0000 1.0000
-vn 0.0000 -1.0000 0.0000
-vn 0.0000 1.0000 0.0000
-# Polygonal face element (see below)
-f 1 2 3
-f 3/1 4/2 5/3
-f 6/4/1 3/5/3 7/3/5
-f 7//1 8//2 7//3)";
-
 std::string minimalWithMultipleObjects = R"(
 v 1.000000 -1.000000 -1.000000
 v 1.000000 -1.000000 1.000000
@@ -158,5 +130,6 @@ TEST_CASE("OBJ Data Parser", "[parser]")
         std::vector<Material> expected = {{"Material1", materialFaces}, {"Material2", materialFaces},{"Material3", materialFaces}};
         REQUIRE(material == expected);
     }
+
 }
 
