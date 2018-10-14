@@ -33,17 +33,8 @@ std::vector<Material> FileReader::ReadFile(std::string fileName)
 }
 
 FileReader::FileReader(std::string fileName)
-: fileName_(std::move(fileName))
+: FileHandlerBase(std::move(fileName))
 {
-    auto ext = fileName_.substr(fileName_.find_last_of(".") + 1);
-    std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
-    if (ext == "obj") {
-        ext_ = FileType::obj;
-    } else if (ext == "stl") {
-        ext_ = FileType::stl;
-    } else {
-        ext_ = FileType::unknown;
-    }
 }
 
 bool FileReader::ReadFileImpl(std::string& buffer)
@@ -51,7 +42,11 @@ bool FileReader::ReadFileImpl(std::string& buffer)
     std::ifstream file;
     file.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
     try {
-        file.open (fileName_);
+        if (binary_)
+            file.open (fileName_, std::ios::in | std::ios::binary);
+        else
+            file.open (fileName_, std::ios::in);
+
         if (!file.is_open())
 		    return false;
 
@@ -63,7 +58,5 @@ bool FileReader::ReadFileImpl(std::string& buffer)
         return false;
     }
     
-    
-
     return true;
 }

@@ -60,7 +60,6 @@ namespace
     }
 }
 
-
 const std::string STLParser::ToData(const std::vector<Material>& material) const
 {
     std::vector<Triangle> allTriangles;
@@ -104,7 +103,7 @@ std::vector<Material> STLParser::FromData(const std::string& data) const
 std::vector<Triangle> STLParser::GetTrianglesFromFace(const Face& face) const
 {
     std::vector<Triangle> result;
-    if (face.size() == 2) {
+    if (face.size() < 3) {
         return {};
     } 
     

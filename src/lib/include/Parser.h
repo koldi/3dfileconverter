@@ -9,10 +9,10 @@ namespace parser
     template<typename T>
     struct is_parser
     {
-        template <class, class> class checker;
+        template <class, class, class> class checker;
 
         template <typename C>
-        static std::true_type test(checker<C, decltype(&C::FromData)> *);
+        static std::true_type test(checker<C, decltype(&C::FromData), decltype(&C::ToData)> *);
 
         template <typename C>
         static std::false_type test(...);
@@ -31,10 +31,28 @@ namespace parser
         static std::vector<Material> parse(const T& t, const std::string& data) {
             return parse(t, data, type());
         }
+
+        static std::string parse(const T& t, const std::vector<Material>& data, std::true_type) {
+            return t.ToData(data);
+        }
+
+        static std::string parse(const T&, const std::vector<Material>&, std::false_type){
+            return {};      
+        }
+
+        static std::string parse(const T& t, const std::vector<Material>& data) {
+            return parse(t, data, type());
+        }
     };
 
     template<typename T>
     std::vector<Material> parse(const T& parser, const std::string& data)
+    {
+        return is_parser<T>::parse(parser, data);
+    }
+
+    template<typename T>
+    std::string parse(const T& parser, const std::vector<Material>& data)
     {
         return is_parser<T>::parse(parser, data);
     }
