@@ -3,6 +3,7 @@
 
 class ParserA {
 public:
+    const std::string ToData(const std::vector<Material>&) const { return ""; }
     std::vector<Material> FromData(const std::string&) const 
     {
         std::vector<Material> m;
@@ -14,12 +15,21 @@ public:
 
 class ParserB {
 public:
+    const std::string ToData(const std::vector<Material>&) const { return ""; }
     std::vector<Material> FromData(const std::string&) { return {}; }
 };
 
 class NotAParserA {
+};
+
+class NotAParserB {
 public:
     const std::string ToData(const std::vector<Material>&) const { return ""; }
+};
+
+class NotAParserC {
+public:
+    std::vector<Material> FromData(const std::string&) { return {}; }
 };
 
 TEST_CASE("Good Parser", "[parser]")
@@ -50,10 +60,27 @@ TEST_CASE("Wrong Parser", "[parser]")
         REQUIRE(parser::is_parser<NotAParserA>::value == false);
     }
 
-    SECTION( "returns a material vector" ) 
+    SECTION( "dont have FromData function" ) 
+    {
+        REQUIRE(parser::is_parser<NotAParserB>::value == false);
+    }
+
+    SECTION( "dont have FromData function" ) 
+    {
+        REQUIRE(parser::is_parser<NotAParserC>::value == false);
+    }
+
+    SECTION( "returns an empty material vector" ) 
     {
         auto m = parser::parse(a, "");
         REQUIRE(m.size() == 0);
+    }
+
+    SECTION( "returns an empty string" ) 
+    {
+        std::vector<Material> v;
+        auto m = parser::parse(a, v);
+        REQUIRE(m.empty());
     }
 }
 
