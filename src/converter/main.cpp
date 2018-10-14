@@ -5,10 +5,14 @@
 
 int main ()
 {
-  // auto f = FileReader::CreateFileReader("/Users/gyorgykatona/git/3dfileconverter/input/input.obj");
-  // for(auto k : f->faces_)
-  // {
-  //   k.ToString();
-  // }
+  auto f = FileReader::ReadFile("/Users/gyorgykatona/git/3dfileconverter/input/input.obj");
+  for(auto k : f)
+  {
+    std::cout << "Material name: " << k.name_;
+    for(auto t : k.faces_)
+    {
+      t.ToString();
+    }
+  }
   return 0;
 }

@@ -12,7 +12,7 @@ public:
     static std::vector<Material> ReadFile(std::string fileName);
 private:
     FileReader(std::string fileName);
-    bool ReadFile(std::vector<char>& buffer);
+    bool ReadFileImpl(std::string& buffer);
 
     std::string fileName_;
     FileType ext_;

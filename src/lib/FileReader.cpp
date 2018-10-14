@@ -9,19 +9,19 @@
 
 std::vector<Material> FileReader::ReadFile(std::string fileName)
 {
-
     FileReader fileReader = {fileName};
-    std::vector<char> buffer;
-    if(!fileReader.ReadFile(buffer))
+    std::string input;
+    
+    if(!fileReader.ReadFileImpl(input))
     {
         return {};
     }
 
-    std::string input(buffer.begin(),buffer.end());
     switch(fileReader.ext_)
     {
         case FileType::obj:
             {
+                std::cout << "4" << std::endl;
                 OBJParser parser;
                 return parser::parse(parser, input);
             }
@@ -48,7 +48,7 @@ FileReader::FileReader(std::string fileName)
     }
 }
 
-bool FileReader::ReadFile(std::vector<char>& buffer)
+bool FileReader::ReadFileImpl(std::string& buffer)
 {
     std::ifstream file;
     file.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
@@ -57,10 +57,7 @@ bool FileReader::ReadFile(std::vector<char>& buffer)
         if (!file.is_open())
 		    return false;
 
-        file.seekg(0, std::ios::end);
-        int fileSize = file.tellg();
-        file.seekg(0, std::ios::beg);
-        file.read((char *)&buffer, fileSize);
+        buffer = std::string((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
         file.close();
     }
     catch (std::ifstream::failure e) {
@@ -68,5 +65,7 @@ bool FileReader::ReadFile(std::vector<char>& buffer)
         return false;
     }
     
+    
+
     return true;
 }
