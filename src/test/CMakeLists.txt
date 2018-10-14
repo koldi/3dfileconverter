@@ -1,6 +1,6 @@
 add_executable(test_3dfileconverter
   test_main.cpp
-  test.cpp
+  ParserTest.cpp
 )
 
 target_link_libraries(test_3dfileconverter

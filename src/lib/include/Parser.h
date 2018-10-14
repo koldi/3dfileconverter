@@ -24,7 +24,7 @@ namespace parser
             return t.FromData(data);
         }
 
-        static std::vector<Material> parse(...){
+        static std::vector<Material> parse(const T&, const std::string&, std::false_type){
             return {};      
         }
 

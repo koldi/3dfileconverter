@@ -21,12 +21,10 @@ std::vector<Material> FileReader::ReadFile(std::string fileName)
     {
         case FileType::obj:
             {
-                std::cout << "4" << std::endl;
                 OBJParser parser;
                 return parser::parse(parser, input);
             }
         case FileType::stl:
-            break;
         case FileType::unknown:
             break;
     }
