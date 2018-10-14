@@ -3,10 +3,15 @@
 #include "FileReader.h"
 #include "FileWriter.h"
 
-int main ()
+int main (int argc, char *argv[])
 {
-  auto f = FileReader::ReadFile("/Users/gyorgykatona/git/3dfileconverter/input/input.obj");
-  FileWriter::WriteFile("/Users/gyorgykatona/git/3dfileconverter/input/input.stl", f);
+  if (argc < 3) {
+      std::cout << "Usage: first parameter is OBJ file, second is STL file\n";
+      return 1;
+  }
+
+  auto f = FileReader::ReadFile(argv[1]);
+  FileWriter::WriteFile(argv[2], f);
 
   return 0;
 }
